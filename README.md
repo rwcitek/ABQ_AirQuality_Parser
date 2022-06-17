@@ -69,8 +69,15 @@ curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > | python abqa
 
 - [http://data.cabq.gov/airquality/aqindex/history/](http://data.cabq.gov/airquality/aqindex/history/)
 
-There are changes in later files in that directory not recognized by this parser currently. Work is underway
-to address these bugs. Interestingly though, the FORMAT_VERSION key is still 2!
+
+Note: Only 7 files from this directory have been checked.
+Various changes have been noted and been addressed by making the parser more forgiven.
+Most of these items have been due to either differences in the format of data section
+value lists or some garbage data.
+
+E.g. 
+Instead of '0.9923', a single field might have '.9923'.
+
 
 ## Grammar
 

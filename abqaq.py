@@ -34,7 +34,7 @@ cr = string("\r")
 lf = string("\n")
 crlf = cr + lf
 el = (lf | crlf)  # Use this alias for the type of line endings. Orig file has Cr Lf el s
-caps = regex(r"[A-Z]")
+caps = regex(r" *[A-Z]")
 
 ## Terminal literals
 
@@ -59,7 +59,7 @@ kv = seq(k1 << comma, id)
 # If you want to exclude the leading ',' then >>. Or if it is a trailing then <<
 #  IOW: the angles point to the thing you want to preserve
 # The .many() turns into a regex-like '*' operation
-vl = (comma >> num).many()
+vl = (comma >> k1).many()
 vc = (comma >> caps).many()
 
 # Debug stuff here
