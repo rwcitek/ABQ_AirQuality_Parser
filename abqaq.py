@@ -3,12 +3,21 @@ import sys
 from parsy import seq, string, regex
 
 # util functions
+
 def argf():
   """ argf : return the open input handle. stdin or open(argv[1]). Like Ruby ARGF """
   if sys.stdin.isatty():
     return open(sys.argv[1], newline='')
   else:
     return sys.stdin
+
+def iscrlf(slice):
+  """ checks if slice matches crlf terminal """
+  try:
+    crlf.parse_partial(slice)
+    return True
+  except:
+    return False
 
 def eprint(*args):
   """ eprint like print but writes to stderr """
@@ -24,7 +33,7 @@ def xclude_empties(*args):
 cr = string("\r")
 lf = string("\n")
 crlf = cr + lf
-el = crlf  # Use this alias for the type of line endings. Orig file has Cr Lf el s
+el = (lf | crlf)  # Use this alias for the type of line endings. Orig file has Cr Lf el s
 caps = regex(r"[A-Z]")
 
 ## Terminal literals
@@ -87,6 +96,8 @@ def main():
     try:
         with argf() as f:
             x = f.read()
+            if iscrlf(x[10:12]):
+              eprint("Input has Cr Lf line endings")
             print(FileSection.parse(x))
     except Exception as exc:
         print("Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9", exc)

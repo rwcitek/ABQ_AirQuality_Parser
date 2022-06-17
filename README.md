@@ -65,17 +65,11 @@ curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > | python abqa
 
 - [https://www.cabq.gov](https://www.cabq.gov)
 
-
-
 ### Historical air quality data directory
 
 - [http://data.cabq.gov/airquality/aqindex/history/](http://data.cabq.gov/airquality/aqindex/history/)
 
-Note: This parser currently works with just the first block of files herein.
-Later files have just linefeed line endings. Work is underway to make an
-option to change the line ending match in the parser to be whatever you want.
-
-And there are other changes not recognized by this parser currently. Work is underway
+There are changes in later files in that directory not recognized by this parser currently. Work is underway
 to address these bugs. Interestingly though, the FORMAT_VERSION key is still 2!
 
 ## Grammar
