@@ -2,6 +2,17 @@
 import sys
 from parsy import seq, string, regex
 
+# util functions
+def argf():
+  """ argf : return the open input handle. stdin or open(argv[1]). Like Ruby ARGF """
+  if sys.stdin.isatty():
+    return open(sys.argv[1], newline='')
+  else:
+    return sys.stdin
+
+def eprint(*args):
+  """ eprint like print but writes to stderr """
+  print(*args, file=sys.stderr)
 
 # helper functions
 def xclude_empties(*args):
@@ -72,11 +83,13 @@ FileSection = seq(bf, (el >> KeyValueOpt).at_least(1), el >> GroupSectionList, e
 
 
 def main():
-    x = sys.stdin.read()
+    """ Read from argv[1] or stdin and try to parse it """
     try:
-        print(FileSection.parse(x))
+        with argf() as f:
+            x = f.read()
+            print(FileSection.parse(x))
     except Exception as exc:
-        print(exc, file=sys.stderr)
+        print("Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9", exc)
         exit(1)
 
 

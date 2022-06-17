@@ -20,7 +20,8 @@ Note: If running on a Debian-derived system, replace the python and pips with py
 
 This program works best with Python version 3.10. It may work with older versions, but they have not been tested.
 
-Note: This step is optional.
+Note: This step is optional. If you do not use virtual environment, 'parsy'
+will be installed in your current Python gloval packages.
 
 0. Create a virtual environment.
 
@@ -28,11 +29,15 @@ Note: This step is optional.
 python -m venv .venv
 ```
 
+
 1.  Install the dependancies
 
 ```bash
 pip install -r requirements.txt
 ```
+
+
+## Running the parser
 
 2. Dowload a data file
 
@@ -41,11 +46,16 @@ curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > data.dat
 ```
 
 
-
 3. Run the program
 
 ```bash
-python abqaq.py < data.dat
+python abqaq.py  data.dat
+```
+
+Note: data.dat can also be redirected to stdin. Or you can use curl:
+
+```bash
+curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > | python abqaq.py
 ```
 
 
