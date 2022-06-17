@@ -66,7 +66,6 @@ DataLine = seq(el >> kv, vl, el >> kv, vc).at_least(1)
 DataSection = seq(bd, DataLine, el >> ed << el)
 
 GroupSection = seq(bg, (el >> KeyValueOpt).at_least(1), el >> DataSection, eg << el)
-
 GroupSectionList = GroupSection.at_least(1)
 
 FileSection = seq(bf, (el >> KeyValueOpt).at_least(1), el >> GroupSectionList, ef << el)

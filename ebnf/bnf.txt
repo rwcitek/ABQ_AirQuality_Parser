@@ -1,0 +1,15 @@
+<FileSection> ::= "BEGIN_FILE\n" <KeyValueList>+ <GroupSection>+ "END_FILE" "\n"*
+
+<GroupSection> ::= "BEGIN_GROUP\n" <KeyValueList>+ <DataSection>* "END_GROUP\n"
+
+<DataSection> ::= "BEGIN_DATA\n" <ValueList>+ "END_DATA\n"
+
+<ValueList> ::= <Value> ("," <Value>)* "\n"
+
+<Value> ::= ( [a-z] | [A-Z] | [0-9] | "." | " " | "-" )+
+
+<KeyValueList> ::= <Key> "," <KeyValue> "\n"
+
+<Key> ::= ( [a-z] | [A-Z] | "_" )+
+
+<KeyValue> ::= ( [a-z] | [A-Z] | [0-9] | "," | "." | " " | "-" )+
