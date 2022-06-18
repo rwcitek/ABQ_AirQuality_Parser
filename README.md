@@ -27,6 +27,13 @@ will be installed in your current Python gloval packages.
 
 ```bash
 python -m venv .venv
+source ./.venv/bin/activate
+```
+
+Note: You can deactivate the virtual environment anytime by:
+
+```bash
+deactivate
 ```
 
 

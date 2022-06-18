@@ -54,7 +54,7 @@ num = regex(r"-?[0-9]+(\.[0-9]+)?")
 
 #  combined parsers
 
-kv = seq(k1 << comma, id)
+kv = seq(name=k1 << comma, site=id)
 # the difference between '<<' and '>>' opers is: which side of the  oper is preserved in seq()
 # If you want to exclude the leading ',' then >>. Or if it is a trailing then <<
 #  IOW: the angles point to the thing you want to preserve
@@ -86,9 +86,9 @@ DataLine = seq(el >> kv, vl, el >> kv, vc).at_least(1)
 DataSection = seq(bd, DataLine, el >> ed << el)
 
 GroupSection = seq(bg, (el >> KeyValueOpt).at_least(1), el >> DataSection, eg << el)
-GroupSectionList = GroupSection.at_least(1)
+GroupSectionList = (el >> GroupSection.at_least(1))
 
-FileSection = seq(bf, (el >> KeyValueOpt).at_least(1), el >> GroupSectionList, ef << el)
+FileSection = seq(File=bf, Meta=(el >> KeyValueOpt).at_least(1), Group=GroupSectionList, EndFile=(ef << el))
 
 
 def main():
@@ -100,7 +100,7 @@ def main():
               eprint("Input has Cr Lf line endings")
             print(FileSection.parse(x))
     except Exception as exc:
-        print("Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9", exc)
+        eprint("Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9", exc)
         exit(1)
 
 
