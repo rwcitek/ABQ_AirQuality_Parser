@@ -24,8 +24,22 @@ def eprint(*args):
   print(*args, file=sys.stderr)
 
 # helper functions
-def xclude_empties(*args):
-    return [x for x in args if x is not None]
+def mkfilesec(**kwargs):
+    """ Returns dictionary: {File: [{k,v}, ...] ...} with Group section  embeded """
+    return {'File': kwargs['Meta'], 'Groups': kwargs['Groups']}
+
+def mkgroupsec(**kwargs):
+    """ returns group section: {'Group' [... group ...]} """
+    return {'Meta': kwargs['Meta'], 'Data': kwargs['Data']}
+
+def mkdatasec(**kwargs):
+    """ Returns data section: {'Locations': ... CSVLine s .. } """
+    return {'Locations': kwargs['Locs']}
+
+def mkdict(**kwargs):
+    """ Converts key word arguments into key/value dictionary """
+    return {kwargs['key']: kwargs['value']}
+
 
 
 # Terminals
@@ -74,21 +88,26 @@ v = (comma >> num).many()
 dbg = seq(bd, lf, k1, comma, num, v, lf, k1, comma, num, v, lf, ed)
 
 # NonTerminals
+
+# Simplified KeyLine. A dict with a key and value of list of one or more values
+#  KeyLine=seq(key=k1, value=(comma >> k1).at_least(1)).combine_dict(mkdict)
+# will result: "foo,bar" => {'foo': ['bar']}; "foo,bar,baz" => {'foo': ['bar', 'bar', 'baz']
+# ... "foo,bar,baz,spam,7" => {'foo': ['bar', 'baz', 'baz', 'spam', '7']
+
 Value = k1
 
-# This captures the TZONE,MST,7 in the original file
-KeyValueOpt = seq(k1, comma >> Value, (comma >> Value).optional()).combine(
-    xclude_empties
-)
 
 
-DataLine = seq(el >> kv, vl, el >> kv, vc).at_least(1)
-DataSection = seq(bd, DataLine, el >> ed << el)
 
-GroupSection = seq(bg, (el >> KeyValueOpt).at_least(1), el >> DataSection, eg << el)
+
+# This is the new line parse for CSV lines
+CSVLine = seq(key=k1, value=(comma >> k1).at_least(1)).combine_dict(mkdict)
+DataSection = seq(StartData=bd, Locs=(el >> CSVLine).at_least(1), EndData=(el >> ed << el)).combine_dict(mkdatasec)
+
+GroupSection = seq(GroupStart=bg, Meta=(el >> CSVLine).at_least(1), Data=(el >> DataSection), EndGroup=(eg << el)).combine_dict(mkgroupsec)
 GroupSectionList = (el >> GroupSection.at_least(1))
 
-FileSection = seq(File=bf, Meta=(el >> KeyValueOpt).at_least(1), Group=GroupSectionList, EndFile=(ef << el))
+FileSection = seq(File=bf, Meta=(el >> CSVLine).at_least(1), Groups=GroupSectionList, EndFile=(ef << el)).combine_dict(mkfilesec)
 
 
 def main():

@@ -66,6 +66,10 @@ curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > | python abqa
 ```
 
 
+
+## Sample output data
+
+[data.out](data.out)
 ## Data Sources
 
 ### City of Albur, New Mexico website
