@@ -1,6 +1,8 @@
 """ abaq.py : Attempt to parse data from Albuquerque, NM Air quality sensor data """
 import sys
+import yaml
 from parsy import seq, string, regex
+from walk import proc_ir
 
 # util functions
 
@@ -132,7 +134,7 @@ def main():
             x = f.read()
             if iscrlf(x[10:12]):
                 eprint("Input has Cr Lf line endings")
-            print(FileSection.parse(x))
+            print(yaml.dump(proc_ir(FileSection.parse(x)), default_flow_style=False, sort_keys=False))
     except Exception as exc:
         eprint(
             "Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9",
