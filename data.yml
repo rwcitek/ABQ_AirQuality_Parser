@@ -5,30 +5,18 @@ DATA_VERSION: '201904222215'
 TZONE: MST:7
 Groups:
 - Meta:
-  - VARIABLE:
-    - CO
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - PPM
-  - STATIONS:
-    - '2'
+    VARIABLE: CO
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: PPM
+    STATIONS: '2'
   Locations:
   - site: '350010023'
     name: 'Del Norte HS 1      '
@@ -43,30 +31,18 @@ Groups:
       G],[0.054, G],[0.062, G],[0.048, G],[0.048, G],[0.033, G],[0.023, G],[0.025,
       G],[0.033, G]'
 - Meta:
-  - VARIABLE:
-    - NO2
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - PPM
-  - STATIONS:
-    - '1'
+    VARIABLE: NO2
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: PPM
+    STATIONS: '1'
   Locations:
   - site: '350010023'
     name: 'Del Norte HS 1      '
@@ -75,30 +51,18 @@ Groups:
       B],[-999, B],[-999, B],[-999, B],[0.0024, G],[0.0045, G],[0.0031, G],[0.0026,
       G],[0.0014, G]'
 - Meta:
-  - VARIABLE:
-    - OZONE
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - PPB
-  - STATIONS:
-    - '3'
+    VARIABLE: OZONE
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: PPB
+    STATIONS: '3'
   Locations:
   - site: '350011012'
     name: 'Foothills           '
@@ -116,30 +80,18 @@ Groups:
       B],[-999, B],[50, G],[51, G],[52, G],[51, G],[50, G],[50, G],[48, G],[49, G],[45,
       G],[44, G],[43, G],[43, G]'
 - Meta:
-  - VARIABLE:
-    - PM10
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - UG/M3
-  - STATIONS:
-    - '4'
+    VARIABLE: PM10
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: UG/M3
+    STATIONS: '4'
   Locations:
   - site: '350010029'
     name: 'South Valley        '
@@ -165,30 +117,18 @@ Groups:
       G],[14.9, G],[14.2, G],[15.3, G],[12, G],[11.8, G],[11.6, G],[13.9, G],[14.8,
       G],[16.5, G],[15.6, G],[17, G],[6.1, G],[4.6, G],[3, G]'
 - Meta:
-  - VARIABLE:
-    - PM2.5
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - UG/M3
-  - STATIONS:
-    - '5'
+    VARIABLE: PM2.5
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: UG/M3
+    STATIONS: '5'
   Locations:
   - site: '350011012'
     name: 'Foothills           '
@@ -221,30 +161,18 @@ Groups:
       B],[-999, B],[-999, B],[-999, B],[-999, B],[-999, B],[-999, B],[-999, B],[-999,
       B],[-999, B],[-999, B],[-999, B],[-999, B],[-999, B],[-999, B]'
 - Meta:
-  - VARIABLE:
-    - SO2
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - PPM
-  - STATIONS:
-    - '1'
+    VARIABLE: SO2
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: PPM
+    STATIONS: '1'
   Locations:
   - site: '350010023'
     name: 'Del Norte HS 1      '
@@ -253,30 +181,18 @@ Groups:
       B],[-999, B],[0.000362, G],[0.00039, G],[0.000424, G],[0.000344, G],[0.000369,
       G],[0.000367, G],[0.000316, G],[0.000304, G],[0.000336, G]'
 - Meta:
-  - VARIABLE:
-    - SRAD
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - W/M2
-  - STATIONS:
-    - '1'
+    VARIABLE: SRAD
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: W/M2
+    STATIONS: '1'
   Locations:
   - site: '350010023'
     name: 'Del Norte HS 2      '
@@ -284,30 +200,18 @@ Groups:
       G],[863, G],[521, G],[567, G],[684, G],[511, G],[476, G],[387, G],[208, G],[80,
       G],[15, G],[0, G],[-1, G],[-2, G]'
 - Meta:
-  - VARIABLE:
-    - TEMP
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - DEGC
-  - STATIONS:
-    - '3'
+    VARIABLE: TEMP
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: DEGC
+    STATIONS: '3'
   Locations:
   - site: '350011013'
     name: 'North Valley        '
@@ -325,30 +229,18 @@ Groups:
       G],[17.8, G],[19.3, G],[18.6, G],[18.9, G],[20.5, G],[20.9, G],[20.1, G],[20.4,
       G],[18.9, G],[15.4, G],[11.5, G],[9.6, G],[10.1, G],[10.5, G]'
 - Meta:
-  - VARIABLE:
-    - WD
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - DEG
-  - STATIONS:
-    - '1'
+    VARIABLE: WD
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: DEG
+    STATIONS: '1'
   Locations:
   - site: '350010023'
     name: 'Del Norte HS 2      '
@@ -356,30 +248,18 @@ Groups:
       G],[190.8, G],[277.3, G],[209.7, G],[110.8, G],[104.7, G],[99.3, G],[98.4, G],[93.8,
       G],[88.2, G],[92.1, G],[143.9, G],[160, G],[109.6, G],[75.5, G],[48, G]'
 - Meta:
-  - VARIABLE:
-    - WDV
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - DEG
-  - STATIONS:
-    - '1'
+    VARIABLE: WDV
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: DEG
+    STATIONS: '1'
   Locations:
   - site: '350010023'
     name: 'Del Norte HS 2      '
@@ -387,30 +267,18 @@ Groups:
       G],[275.6, G],[170.9, G],[111.7, G],[105, G],[99.3, G],[98.4, G],[94.4, G],[88,
       G],[91.8, G],[116.9, G],[230.3, G],[110.9, G],[73.7, G],[46.8, G]'
 - Meta:
-  - VARIABLE:
-    - WS
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - MPH
-  - STATIONS:
-    - '1'
+    VARIABLE: WS
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: MPH
+    STATIONS: '1'
   Locations:
   - site: '350010023'
     name: 'Del Norte HS 2      '
@@ -418,30 +286,18 @@ Groups:
       G],[6.2, G],[16.1, G],[15.2, G],[15.6, G],[14.1, G],[15, G],[17.3, G],[18.3,
       G],[14.6, G],[6.3, G],[10.3, G],[12.9, G],[13.2, G]'
 - Meta:
-  - VARIABLE:
-    - WSV
-  - DATA_TYPE:
-    - POINT
-  - MEASUREMENT_TYPE:
-    - SAMPLE
-  - CHARACTERISTIC:
-    - OBSERVED
-  - START_DTG:
-    - '201904220000'
-  - END_DTG:
-    - '201904222159'
-  - INTERVAL:
-    - '60'
-  - START_REF:
-    - '0'
-  - NUMSTEPS:
-    - '22'
-  - AVG_TIME:
-    - '60'
-  - UNITS:
-    - MPH
-  - STATIONS:
-    - '1'
+    VARIABLE: WSV
+    DATA_TYPE: POINT
+    MEASUREMENT_TYPE: SAMPLE
+    CHARACTERISTIC: OBSERVED
+    START_DTG: '201904220000'
+    END_DTG: '201904222159'
+    INTERVAL: '60'
+    START_REF: '0'
+    NUMSTEPS: '22'
+    AVG_TIME: '60'
+    UNITS: MPH
+    STATIONS: '1'
   Locations:
   - site: '350010023'
     name: 'Del Norte HS 2      '

@@ -38,7 +38,7 @@ def get_data(chks):
 
 def get_group(grp):
     res = {}
-    res["Meta"] = grp["Meta"]
+    res["Meta"] = normalize(grp["Meta"])
     res["Locations"] = get_data(grp["Data"]["Locations"])
     return res
 
