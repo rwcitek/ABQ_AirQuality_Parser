@@ -66,6 +66,17 @@ curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > | python abqa
 ```
 
 
+Note the format of the output is in YAML. The Python package used is:
+
+- pyyaml
+
+[https://pyyaml.org/wiki/PyYAMLDocumentation](https://pyyaml.org/wiki/PyYAMLDocumentation)
+
+The flow_style is set to always use nested block syntax.
+
+Here is a page that describes the 2 styles (block vs. flow):
+[https://www.javatpoint.com/yaml-styles](https://www.javatpoint.com/yaml-styles)
+
 
 ## Sample output data
 
