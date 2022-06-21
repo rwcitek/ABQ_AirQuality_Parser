@@ -69,7 +69,18 @@ curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > | python abqa
 
 ## Sample output data
 
-[data.out](data.out)
+
+### IR (intermediate Representation) from first stage parser
+[data.ir](data.ir)
+
+### Transformed dictionary after second phase
+
+[data.dct](data.dct)
+
+### Final YAML output
+
+[data.yml](data.yml)
+
 ## Data Sources
 
 ### City of Albur, New Mexico website
