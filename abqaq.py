@@ -4,42 +4,48 @@ from parsy import seq, string, regex
 
 # util functions
 
+
 def argf():
-  """ argf : return the open input handle. stdin or open(argv[1]). Like Ruby ARGF """
-  if sys.stdin.isatty():
-    return open(sys.argv[1], newline='')
-  else:
-    return sys.stdin
+    """argf : return the open input handle. stdin or open(argv[1]). Like Ruby ARGF"""
+    if sys.stdin.isatty():
+        return open(sys.argv[1], newline="")
+    else:
+        return sys.stdin
+
 
 def iscrlf(slice):
-  """ checks if slice matches crlf terminal """
-  try:
-    crlf.parse_partial(slice)
-    return True
-  except:
-    return False
+    """checks if slice matches crlf terminal"""
+    try:
+        crlf.parse_partial(slice)
+        return True
+    except:
+        return False
+
 
 def eprint(*args):
-  """ eprint like print but writes to stderr """
-  print(*args, file=sys.stderr)
+    """eprint like print but writes to stderr"""
+    print(*args, file=sys.stderr)
+
 
 # helper functions
 def mkfilesec(**kwargs):
-    """ Returns dictionary: {File: [{k,v}, ...] ...} with Group section  embeded """
-    return {'File': kwargs['Meta'], 'Groups': kwargs['Groups']}
+    """Returns dictionary: {File: [{k,v}, ...] ...} with Group section  embeded"""
+    return {"File": kwargs["Meta"], "Groups": kwargs["Groups"]}
+
 
 def mkgroupsec(**kwargs):
-    """ returns group section: {'Group' [... group ...]} """
-    return {'Meta': kwargs['Meta'], 'Data': kwargs['Data']}
+    """returns group section: {'Group' [... group ...]}"""
+    return {"Meta": kwargs["Meta"], "Data": kwargs["Data"]}
+
 
 def mkdatasec(**kwargs):
-    """ Returns data section: {'Locations': ... CSVLine s .. } """
-    return {'Locations': kwargs['Locs']}
+    """Returns data section: {'Locations': ... CSVLine s .. }"""
+    return {"Locations": kwargs["Locs"]}
+
 
 def mkdict(**kwargs):
-    """ Converts key word arguments into key/value dictionary """
-    return {kwargs['key']: kwargs['value']}
-
+    """Converts key word arguments into key/value dictionary"""
+    return {kwargs["key"]: kwargs["value"]}
 
 
 # Terminals
@@ -47,7 +53,7 @@ def mkdict(**kwargs):
 cr = string("\r")
 lf = string("\n")
 crlf = cr + lf
-el = (lf | crlf)  # Use this alias for the type of line endings. Orig file has Cr Lf el s
+el = lf | crlf  # Use this alias for the type of line endings. Orig file has Cr Lf el s
 caps = regex(r" *[A-Z]")
 
 ## Terminal literals
@@ -97,29 +103,41 @@ dbg = seq(bd, lf, k1, comma, num, v, lf, k1, comma, num, v, lf, ed)
 Value = k1
 
 
-
-
-
 # This is the new line parse for CSV lines
 CSVLine = seq(key=k1, value=(comma >> k1).at_least(1)).combine_dict(mkdict)
-DataSection = seq(StartData=bd, Locs=(el >> CSVLine).at_least(1), EndData=(el >> ed << el)).combine_dict(mkdatasec)
+DataSection = seq(
+    StartData=bd, Locs=(el >> CSVLine).at_least(1), EndData=(el >> ed << el)
+).combine_dict(mkdatasec)
 
-GroupSection = seq(GroupStart=bg, Meta=(el >> CSVLine).at_least(1), Data=(el >> DataSection), EndGroup=(eg << el)).combine_dict(mkgroupsec)
-GroupSectionList = (el >> GroupSection.at_least(1))
+GroupSection = seq(
+    GroupStart=bg,
+    Meta=(el >> CSVLine).at_least(1),
+    Data=(el >> DataSection),
+    EndGroup=(eg << el),
+).combine_dict(mkgroupsec)
+GroupSectionList = el >> GroupSection.at_least(1)
 
-FileSection = seq(File=bf, Meta=(el >> CSVLine).at_least(1), Groups=GroupSectionList, EndFile=(ef << el)).combine_dict(mkfilesec)
+FileSection = seq(
+    File=bf,
+    Meta=(el >> CSVLine).at_least(1),
+    Groups=GroupSectionList,
+    EndFile=(ef << el),
+).combine_dict(mkfilesec)
 
 
 def main():
-    """ Read from argv[1] or stdin and try to parse it """
+    """Read from argv[1] or stdin and try to parse it"""
     try:
         with argf() as f:
             x = f.read()
             if iscrlf(x[10:12]):
-              eprint("Input has Cr Lf line endings")
+                eprint("Input has Cr Lf line endings")
             print(FileSection.parse(x))
     except Exception as exc:
-        eprint("Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9", exc)
+        eprint(
+            "Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9",
+            exc,
+        )
         exit(1)
 
 
