@@ -126,23 +126,23 @@ capturing all the terminals (that are not commaa or line endings) in elements
 of a list and capturing the nonterminals as lists or lists of lists.
 
 
+### Terminals
+
+- comma ","
+- el ("\r\n" | "\n")
+-value   /[A-Za-z0-9._\-\/ ]+/
+
+
 ```EBNF
-/* terminals are listed first and lowercase. Names should be self-explanatory
-*/
 
-<KeyValueOpt> ::= 
+<CSVLine> ::= value (comma value)+
 
-<DataLine ::=> 
+<DataSection> ::= "BEGIN_DATA" (el <CSVLine>)+ el "END_DATA"
 
-<DataSection> ::= 
+<GroupSection> ::= "BEGIN_GROUP" (el <CSVLine>)+ <DataSection> el "END_GROUP"
 
-<GroupSection> ::= 
-
-<GroupSectionList> ::= <GroupSection>+
-
-<FileSection> ::= 
+<FileSection> ::= "BEGIN_FILE (el <CSVLine>)+ (el <GroupSection>)+ el "END_FILE" el
 ```
-
 
 ### BNF Playground
 

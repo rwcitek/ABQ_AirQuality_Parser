@@ -55,7 +55,9 @@ comma = string(",")
 cr = string("\r")
 lf = string("\n")
 crlf = cr + lf
-el = lf | crlf  # el can be either a CrLf line ending or a Lf ending. Parse works for both
+el = (
+    lf | crlf
+)  # el can be either a CrLf line ending or a Lf ending. Parse works for both
 
 ## Terminal literals
 
@@ -68,7 +70,7 @@ ef = string("END_FILE")
 
 
 value = regex(r"[A-Za-z0-9._\-\/ ]+")
-#num = regex(r"-?[0-9]+(\.[0-9]+)?")
+# num = regex(r"-?[0-9]+(\.[0-9]+)?")
 
 #  combined parsers
 
@@ -84,7 +86,6 @@ def rddata(fn):
     """rddata() returns the _ exact _ contenst of 'begin_data.ex1'"""
     with open(fn, newline="") as f:  # Suppress the line ending handler
         return f.read()
-
 
 
 # NonTerminals
@@ -119,7 +120,13 @@ def main():
             x = f.read()
             if iscrlf(x[10:12]):
                 eprint("Input has Cr Lf line endings")
-            print(yaml.dump(proc_ir(FileSection.parse(x)), default_flow_style=False, sort_keys=False))
+            print(
+                yaml.dump(
+                    proc_ir(FileSection.parse(x)),
+                    default_flow_style=False,
+                    sort_keys=False,
+                )
+            )
     except Exception as exc:
         eprint(
             "Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9",
