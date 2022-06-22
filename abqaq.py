@@ -51,12 +51,11 @@ def mkdict(**kwargs):
 
 
 # Terminals
-
+comma = string(",")
 cr = string("\r")
 lf = string("\n")
 crlf = cr + lf
-el = lf | crlf  # Use this alias for the type of line endings. Orig file has Cr Lf el s
-caps = regex(r" *[A-Z]")
+el = lf | crlf  # el can be either a CrLf line ending or a Lf ending. Parse works for both
 
 ## Terminal literals
 
@@ -68,21 +67,17 @@ bf = string("BEGIN_FILE")
 ef = string("END_FILE")
 
 
-# TODO: Rename k1 to Key
-k1 = regex(r"[A-Za-z0-9._\-\/ ]+")
-id = regex(r"[0-9]+")
-comma = string(",")
-num = regex(r"-?[0-9]+(\.[0-9]+)?")
+value = regex(r"[A-Za-z0-9._\-\/ ]+")
+#num = regex(r"-?[0-9]+(\.[0-9]+)?")
 
 #  combined parsers
 
-kv = seq(name=k1 << comma, site=id)
+kv = seq(name=value << comma, site=id)
 # the difference between '<<' and '>>' opers is: which side of the  oper is preserved in seq()
 # If you want to exclude the leading ',' then >>. Or if it is a trailing then <<
 #  IOW: the angles point to the thing you want to preserve
 # The .many() turns into a regex-like '*' operation
-vl = (comma >> k1).many()
-vc = (comma >> caps).many()
+vl = (comma >> value).many()
 
 # Debug stuff here
 def rddata(fn):
@@ -91,22 +86,12 @@ def rddata(fn):
         return f.read()
 
 
-# dbg = (bd >> lf >> seq(k1 << comma, num) + vlist << lf >> seq(k1 << comma, num) + vlist << lf << ed)
-v = (comma >> num).many()
-dbg = seq(bd, lf, k1, comma, num, v, lf, k1, comma, num, v, lf, ed)
 
 # NonTerminals
 
-# Simplified KeyLine. A dict with a key and value of list of one or more values
-#  KeyLine=seq(key=k1, value=(comma >> k1).at_least(1)).combine_dict(mkdict)
-# will result: "foo,bar" => {'foo': ['bar']}; "foo,bar,baz" => {'foo': ['bar', 'bar', 'baz']
-# ... "foo,bar,baz,spam,7" => {'foo': ['bar', 'baz', 'baz', 'spam', '7']
-
-Value = k1
-
 
 # This is the new line parse for CSV lines
-CSVLine = seq(key=k1, value=(comma >> k1).at_least(1)).combine_dict(mkdict)
+CSVLine = seq(key=value, value=(comma >> value).at_least(1)).combine_dict(mkdict)
 DataSection = seq(
     StartData=bd, Locs=(el >> CSVLine).at_least(1), EndData=(el >> ed << el)
 ).combine_dict(mkdatasec)
