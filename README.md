@@ -62,7 +62,7 @@ python abqaq.py  data.dat
 Note: data.dat can also be redirected to stdin. Or you can use curl:
 
 ```bash
-curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > | python abqaq.py
+curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > | python abqaq.py -
 ```
 
 
@@ -91,6 +91,16 @@ Here is a page that describes the 2 styles (block vs. flow):
 ### Final YAML output
 
 [data.yml](data.yml)
+
+## Usage
+
+The program abqaq.py takes some optional flags and a possible path to a data file.
+If you want to have abqaq.py read from a pipe or stdin, pass '-' as the file path.
+
+### Flags
+
+- '-q, --quiet' : Suppresses informational output on stderr like note regarding CrLf line endings.
+- '-h, --help' : Prints the usage and help message and exits without actually doing anything.
 
 ## Data Sources
 

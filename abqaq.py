@@ -1,8 +1,16 @@
 """ abaq.py : Attempt to parse data from Albuquerque, NM Air quality sensor data """
 import sys
+import argparse as ap
 import yaml
 from parsy import seq, string, regex
 from walk import proc_ir
+
+# Globals
+options = {
+    'ifile': None, 
+    'quiet': False,
+}
+
 
 # util functions
 
@@ -10,10 +18,18 @@ from walk import proc_ir
 def argf():
     """argf : return the open input handle. stdin or open(argv[1]). Like Ruby ARGF"""
     if sys.stdin.isatty():
-        return open(sys.argv[1], newline="")
+        return open(options['ifile'], newline="")
     else:
         return sys.stdin
 
+def parse_args():
+    """ Parse the command line flags and sets the options global """
+    parser = ap.ArgumentParser(description="ABQ Air Quality Parser")
+    parser.add_argument('ifile')
+    parser.add_argument('-q', '--quiet', action='store_true', help="Suppresses informational messages")
+    flags = parser.parse_args()
+    options['ifile'] = flags.ifile
+    options['quiet'] = flags.quiet
 
 def iscrlf(slice):
     """checks if slice matches crlf terminal"""
@@ -28,6 +44,12 @@ def eprint(*args):
     """eprint like print but writes to stderr"""
     print(*args, file=sys.stderr)
 
+def iprint(*args):
+    """ like eprint, but checks agains the '--quiet' flag and suppresses the outout """
+    if options['quiet']:
+        pass
+    else:
+        eprint(*args)
 
 # helper functions
 def mkfilesec(**kwargs):
@@ -55,9 +77,7 @@ comma = string(",")
 cr = string("\r")
 lf = string("\n")
 crlf = cr + lf
-el = (
-    lf | crlf
-)  # el can be either a CrLf line ending or a Lf ending. Parse works for both
+el = lf | crlf  # el can be either a CrLf line ending or a Lf ending. Parse works for both
 
 ## Terminal literals
 
@@ -70,7 +90,7 @@ ef = string("END_FILE")
 
 
 value = regex(r"[A-Za-z0-9._\-\/ ]+")
-# num = regex(r"-?[0-9]+(\.[0-9]+)?")
+#num = regex(r"-?[0-9]+(\.[0-9]+)?")
 
 #  combined parsers
 
@@ -86,6 +106,7 @@ def rddata(fn):
     """rddata() returns the _ exact _ contenst of 'begin_data.ex1'"""
     with open(fn, newline="") as f:  # Suppress the line ending handler
         return f.read()
+
 
 
 # NonTerminals
@@ -114,19 +135,14 @@ FileSection = seq(
 
 
 def main():
+    parse_args()
     """Read from argv[1] or stdin and try to parse it"""
     try:
         with argf() as f:
             x = f.read()
             if iscrlf(x[10:12]):
-                eprint("Input has Cr Lf line endings")
-            print(
-                yaml.dump(
-                    proc_ir(FileSection.parse(x)),
-                    default_flow_style=False,
-                    sort_keys=False,
-                )
-            )
+                iprint("Input has Cr Lf line endings")
+            print(yaml.dump(proc_ir(FileSection.parse(x)), default_flow_style=False, sort_keys=False))
     except Exception as exc:
         eprint(
             "Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9",
