@@ -101,6 +101,12 @@ Here is a page that describes the 2 styles (block vs. flow):
 
 [data.yml](data.yml)
 
+### JSON format
+
+If you pass the 'j' or '--json' flag, you will get the output in JSON format
+written to stdout.
+[data.json](data.json)
+
 ## Usage
 
 The program abqaq.py takes some optional flags and a possible path to a data file.
@@ -109,6 +115,7 @@ If you want to have abqaq.py read from a pipe or stdin, pass '-' as the file pat
 ### Flags
 
 - '-q, --quiet' : Suppresses informational output on stderr like note regarding CrLf line endings.
+- '-j, --json' : Outputs JSON instead of YAML (the default)
 - '-h, --help' : Prints the usage and help message and exits without actually doing anything.
 
 ## Data Sources

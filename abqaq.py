@@ -1,7 +1,7 @@
 """ abaq.py : Attempt to parse data from Albuquerque, NM Air quality sensor data """
 import sys
 import argparse as ap
-import yaml
+# import yaml
 from parsy import seq, string, regex
 from walk import proc_ir
 
@@ -9,6 +9,7 @@ from walk import proc_ir
 options = {
     'ifile': None, 
     'quiet': False,
+    'serializer': 'YAML',
 }
 
 
@@ -24,12 +25,27 @@ def argf():
 
 def parse_args():
     """ Parse the command line flags and sets the options global """
-    parser = ap.ArgumentParser(description="ABQ Air Quality Parser")
+    parser = ap.ArgumentParser(description="Albuquerque Air Quality Parser")
     parser.add_argument('ifile')
     parser.add_argument('-q', '--quiet', action='store_true', help="Suppresses informational messages")
+    parser.add_argument('-j', '--json',action='store_true', help='Use JSON instead of YAML') 
     flags = parser.parse_args()
     options['ifile'] = flags.ifile
     options['quiet'] = flags.quiet
+    if flags.json:
+        options['serializer'] = 'JSON'
+
+def serialize(ir2):
+    """ Given IR dictionary from phase II, return string based on the value of options['serializer']. YAML | JSON """
+    if options['serializer'] == 'JSON':
+        from io import StringIO
+        import json
+        s = StringIO()
+        json.dump(ir2, s)
+        return s.getvalue()
+    else:
+        import yaml
+        return yaml.dump(ir2,default_flow_style=False, sort_keys=False) 
 
 def iscrlf(slice):
     """checks if slice matches crlf terminal"""
@@ -142,7 +158,7 @@ def main():
             x = f.read()
             if iscrlf(x[10:12]):
                 iprint("Input has Cr Lf line endings")
-            print(yaml.dump(proc_ir(FileSection.parse(x)), default_flow_style=False, sort_keys=False))
+            print(serialize(proc_ir(FileSection.parse(x))))
     except Exception as exc:
         eprint(
             "Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9",
