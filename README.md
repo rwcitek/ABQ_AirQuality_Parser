@@ -9,8 +9,6 @@ If the file parses correctly, it will write a YAML formatted file to stdout.
 If there are any problems or the input source does notparse, it will print
 a message to stderr and exit with a non-zero exit code.
 
-If there is some fault in the data file or the program itself, it prints an error message
-on stderr and exits with a status code of 1.
 
 ## Setup
 
