@@ -1,10 +1,9 @@
 # AbqAq_Parser
-Parser for Abq, N.M. Air Quality data format
-
+Parser for Albuquerque, NM, Air Quality data format
 
 ## Abstract
 
-This file: abqaq.py will parse a file downloaded from Abq N.M.'s web site for air quality readings
+This file: abqaq.py will parse a file downloaded from Abq NM's web site for air quality readings.
 
 It currently just checks the syntax of the file.
 If the data file parses correctly, it will output a badly formed AST (list of
@@ -16,12 +15,12 @@ on stderr and exits with a status code of 1.
 
 ## Setup
 
-Note: If running on a Debian-derived system, replace the python and pips with python3 and pip3.
+**Note**: If running on a Debian-derived system, replace python and pip with python3 and pip3.
 
 This program works best with Python version 3.10. It may work with older versions, but they have not been tested.
 
-Note: This step is optional. If you do not use virtual environment, 'parsy'
-will be installed in your current Python gloval packages.
+**Note**: This step is optional. If you do not use virtual environment, 'parsy'
+will be installed in your current Python global packages.
 
 0. Create a virtual environment.
 
@@ -30,19 +29,17 @@ python -m venv .venv
 source ./.venv/bin/activate
 ```
 
-Note: You can deactivate the virtual environment anytime by:
+**Note**: You can deactivate the virtual environment anytime by:
 
 ```bash
 deactivate
 ```
-
 
 1.  Install the dependancies
 
 ```bash
 pip install -r requirements.txt
 ```
-
 
 ## Running the parser
 
@@ -52,34 +49,30 @@ pip install -r requirements.txt
 curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > data.dat
 ```
 
-
 3. Run the program
 
 ```bash
-python abqaq.py  data.dat
+python abqaq.py data.dat
 ```
 
-Note: data.dat can also be redirected to stdin. Or you can use curl:
+**Note**: data.dat can also be redirected to stdin. Or you can use curl:
 
 ```bash
-curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 > | python abqaq.py -
+curl http://data.cabq.gov/airquality/aqindex/history/042222.0017 | python abqaq.py -
 ```
 
-
-Note the format of the output is in YAML. The Python package used is:
+**Note**: the format of the output is in YAML. The Python package used is:
 
 - pyyaml
 
-[https://pyyaml.org/wiki/PyYAMLDocumentation](https://pyyaml.org/wiki/PyYAMLDocumentation)
+https://pyyaml.org/wiki/PyYAMLDocumentation
 
 The flow_style is set to always use nested block syntax.
 
 Here is a page that describes the 2 styles (block vs. flow):
-[https://www.javatpoint.com/yaml-styles](https://www.javatpoint.com/yaml-styles)
-
+- https://www.javatpoint.com/yaml-styles
 
 ## Sample output data
-
 
 ### IR (intermediate Representation) from first stage parser
 [data.ir](data.ir)
@@ -104,23 +97,20 @@ If you want to have abqaq.py read from a pipe or stdin, pass '-' as the file pat
 
 ## Data Sources
 
-### City of Albur, New Mexico website
+### City of Albuquerque, NM, website
 
-- [https://www.cabq.gov](https://www.cabq.gov)
+- https://www.cabq.gov
 
 ### Historical air quality data directory
 
-- [http://data.cabq.gov/airquality/aqindex/history/](http://data.cabq.gov/airquality/aqindex/history/)
+- http://data.cabq.gov/airquality/aqindex/history/
 
-
-Note: Only 7 files from this directory have been checked.
+**Note**: Only 7 files from this directory have been checked.
 Various changes have been noted and been addressed by making the parser more forgiven.
 Most of these items have been due to either differences in the format of data section
 value lists or some garbage data.
 
-E.g. 
-Instead of '0.9923', a single field might have '.9923'.
-
+E.g. Instead of '0.9923', a single field might have '.9923'.
 
 ## Grammar
 
@@ -131,8 +121,8 @@ This grammar is the 3rd attempt, at least. The grammar is represented in Extende
 Backus Naur Format or EBNF. The varient used is the type that uses operators from
 RegExpLand. E.g. '*', '+', '?' and parens for grouping.
 
-This grammar is extracted from the file: 'abqaq.py'. It employs the the strategy
-capturing all the terminals (that are not commaa or line endings) in elements
+This grammar is extracted from the file: 'abqaq.py'. It employs the strategy
+capturing all the terminals (that are not commas or line endings) in elements
 of a list and capturing the nonterminals as lists or lists of lists.
 
 
@@ -140,11 +130,10 @@ of a list and capturing the nonterminals as lists or lists of lists.
 
 - comma ","
 - el ("\r\n" | "\n")
--value   /[A-Za-z0-9._\-\/ ]+/
+- value   /[A-Za-z0-9._\-\/ ]+/
 
 
 ```EBNF
-
 <CSVLine> ::= value (comma value)+
 
 <DataSection> ::= "BEGIN_DATA" (el <CSVLine>)+ el "END_DATA"
@@ -158,7 +147,7 @@ of a list and capturing the nonterminals as lists or lists of lists.
 
 This site was used to develop the EBNF used above.
 
-- [https://bnfplayground.pauliankline.com/](https://bnfplayground.pauliankline.com/)
+- https://bnfplayground.pauliankline.com/
 
 
 
