@@ -1,14 +1,13 @@
 # AbqAq_Parser
-Parser for Albuquerque, NM, Air Quality data format
+Parser for Albuquerque, N.M., Air Quality data format
 
 ## Abstract
 
-This file: abqaq.py will parse a file downloaded from Abq NM's web site for air quality readings.
+This file: abqaq.py will parse a file downloaded from Albuquerque, N.M.'s web site for air quality readings.
 
-It currently just checks the syntax of the file.
-If the data file parses correctly, it will output a badly formed AST (list of
-lists) and exit with a 0 status code.
-
+If the file parses correctly, it will write a YAML formatted file to stdout.
+If there are any problems or the input source does notparse, it will print
+a message to stderr and exit with a non-zero exit code.
 
 If there is some fault in the data file or the program itself, it prints an error message
 on stderr and exits with a status code of 1.
@@ -19,8 +18,27 @@ on stderr and exits with a status code of 1.
 
 This program works best with Python version 3.10. It may work with older versions, but they have not been tested.
 
+### Dependencies
+
+- parsy : Parser cobinator library
+- pyyaml : YAML package for Python
+
+
+#### Parsy
+
+This program relies on the 'parsy' Python package. 
+- [https://github.com/python-parsy/parsy](https://github.com/python-parsy/parsy)
+
+That package requires Python 3.6 or greater.
+
+#### PyYaml
+
+YAML support is provided by pyyaml:
+
+- [https://pyyaml.org](https://pyyaml.org)
+
 **Note**: This step is optional. If you do not use virtual environment, 'parsy'
-will be installed in your current Python global packages.
+and 'pyyml' will be installed in your current Python global packages.
 
 0. Create a virtual environment.
 
@@ -123,7 +141,7 @@ RegExpLand. E.g. '*', '+', '?' and parens for grouping.
 
 This grammar is extracted from the file: 'abqaq.py'. It employs the strategy
 capturing all the terminals (that are not commas or line endings) in elements
-of a list and capturing the nonterminals as lists or lists of lists.
+of a list and capturing the nonterminals as lists of lists of lists.
 
 
 ### Terminals
@@ -140,7 +158,7 @@ of a list and capturing the nonterminals as lists or lists of lists.
 
 <GroupSection> ::= "BEGIN_GROUP" (el <CSVLine>)+ <DataSection> el "END_GROUP"
 
-<FileSection> ::= "BEGIN_FILE (el <CSVLine>)+ (el <GroupSection>)+ el "END_FILE" el
+<FileSection> ::= "BEGIN_FILE" (el <CSVLine>)+ (el <GroupSection>)+ el "END_FILE" el
 ```
 
 ### BNF Playground
