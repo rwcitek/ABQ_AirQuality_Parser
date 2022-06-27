@@ -1,6 +1,7 @@
 """ walk.py : walks the IR and productes dict which can be fed into YAML """
 from functools import reduce
-
+from options import options
+from util import eprint
 
 def unwrap_value(v, sep=":"):
     """given a value from IR key/value_list unwraps its value into a string with sep"""
@@ -21,9 +22,11 @@ def get_site(chk1, chk2):
     res = {}
     res["site"] = list(chk1.values())[0][0]
     res["name"] = list(chk1.keys())[0]
-    l1 = list(chk1.values())[0][1:]
-    l2 = list(chk2.values())[0][1:]
-    res["data"] = ",".join(list(map(fmt_val, zip(l1, l2))))
+    l1 = map(float, list(chk1.values())[0][1:])
+    l2 = map(lambda v: v.strip(), list(chk2.values())[0][1:])
+
+    res["data"] = options['pretty'](l1, l2)
+    # list(map(fmt_val, zip(l1, l2))))
     return res
 
 
@@ -45,7 +48,7 @@ def get_group(grp):
 
 # start here
 def proc_ir(ir):
-    """process the IR (Internal Representation) returned from parser. Returns a new dict"""
+    """process the IR (Internal Representation) returned from parser. Returns a new dict which is the new IR2"""
     res = normalize(ir["File"])
     res["Groups"] = [get_group(x) for x in ir["Groups"]]
     return res

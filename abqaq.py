@@ -1,39 +1,16 @@
 """ abaq.py : Attempt to parse data from Albuquerque, NM Air quality sensor data """
 import sys
-import argparse as ap
-# import yaml
-from parsy import seq, string, regex
+from parsy import seq, string, regex, ParseError
+import yaml
+from options import options, parse_args
+from util import argf, eprint, iprint
 from walk import proc_ir
 
 # Globals
-options = {
-    'ifile': None, 
-    'quiet': False,
-    'serializer': 'YAML',
-}
 
 
 # util functions
 
-
-def argf():
-    """argf : return the open input handle. stdin or open(argv[1]). Like Ruby ARGF"""
-    if sys.stdin.isatty():
-        return open(options['ifile'], newline="")
-    else:
-        return sys.stdin
-
-def parse_args():
-    """ Parse the command line flags and sets the options global """
-    parser = ap.ArgumentParser(description="Albuquerque Air Quality Parser")
-    parser.add_argument('ifile')
-    parser.add_argument('-q', '--quiet', action='store_true', help="Suppresses informational messages")
-    parser.add_argument('-j', '--json',action='store_true', help='Use JSON instead of YAML') 
-    flags = parser.parse_args()
-    options['ifile'] = flags.ifile
-    options['quiet'] = flags.quiet
-    if flags.json:
-        options['serializer'] = 'JSON'
 
 def serialize(ir2):
     """ Given IR dictionary from phase II, return string based on the value of options['serializer']. YAML | JSON """
@@ -44,7 +21,6 @@ def serialize(ir2):
         json.dump(ir2, s)
         return s.getvalue()
     else:
-        import yaml
         return yaml.dump(ir2,default_flow_style=False, sort_keys=False) 
 
 def iscrlf(slice):
@@ -56,16 +32,6 @@ def iscrlf(slice):
         return False
 
 
-def eprint(*args):
-    """eprint like print but writes to stderr"""
-    print(*args, file=sys.stderr)
-
-def iprint(*args):
-    """ like eprint, but checks agains the '--quiet' flag and suppresses the outout """
-    if options['quiet']:
-        pass
-    else:
-        eprint(*args)
 
 # helper functions
 def mkfilesec(**kwargs):
@@ -159,11 +125,16 @@ def main():
             if iscrlf(x[10:12]):
                 iprint("Input has Cr Lf line endings")
             print(serialize(proc_ir(FileSection.parse(x))))
+    except ValueError as vex:
+        eprint(vex)
+        exit(3)
+    except ParseError as pex:
+        ln, cm = map(int, pex.line_info().split(':'))
+        ln += 1; cm += 1
+        eprint(f"parse error at line:{ln}, column{cm}")
+        exit(2)
     except Exception as exc:
-        eprint(
-            "Line and column numbers are 0-indexed. E.g. 0:10 would be line 1, col 9",
-            exc,
-        )
+        eprint("Unknown error occurred:", exc)
         exit(1)
 
 

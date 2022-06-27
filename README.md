@@ -105,6 +105,7 @@ Here is a page that describes the 2 styles (block vs. flow):
 
 If you pass the 'j' or '--json' flag, you will get the output in JSON format
 written to stdout.
+
 [data.json](data.json)
 
 ## Usage
