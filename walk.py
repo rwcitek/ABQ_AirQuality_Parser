@@ -1,6 +1,6 @@
 """ walk.py : walks the IR and productes dict which can be fed into YAML """
 from functools import reduce
-from options import options
+from options import compose_data
 from util import eprint
 
 def unwrap_value(v, sep=":"):
@@ -25,7 +25,7 @@ def get_site(chk1, chk2):
     l1 = map(float, list(chk1.values())[0][1:])
     l2 = map(lambda v: v.strip(), list(chk2.values())[0][1:])
 
-    res["data"] = options['pretty'](l1, l2)
+    res["data"] = compose_data(l1, l2)
     # list(map(fmt_val, zip(l1, l2))))
     return res
 

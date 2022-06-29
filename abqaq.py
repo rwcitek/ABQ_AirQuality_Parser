@@ -2,7 +2,7 @@
 import sys
 from parsy import seq, string, regex, ParseError
 import yaml
-from options import options, parse_args
+from options import options, get_flags, process_args,  ifile
 from util import argf, eprint, iprint
 from walk import proc_ir
 
@@ -117,10 +117,13 @@ FileSection = seq(
 
 
 def main():
-    parse_args()
     """Read from argv[1] or stdin and try to parse it"""
+    global options
+    o, remains = process_args()
+    options |= o
+    ifile = remains[0]
     try:
-        with argf() as f:
+        with argf(ifile) as f:
             x = f.read()
             if iscrlf(x[10:12]):
                 iprint("Input has Cr Lf line endings")

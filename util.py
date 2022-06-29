@@ -1,12 +1,14 @@
 """ util.py : Various utility functions and classes including custom errors. """
 import sys
-from options import options, parse_args
+from options import options, ifile
 
 
-def argf():
+def argf(inf):
     """argf : return the open input handle. stdin or open(argv[1]). Like Ruby ARGF"""
     if sys.stdin.isatty():
-        return open(options['ifile'], newline="")
+        return open(inf, newline="")
+    elif inf is None:
+                return sys.stdin
     else:
         return sys.stdin
 
