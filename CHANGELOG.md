@@ -1,5 +1,30 @@
 # CHANGELOG
 
+ 0.1.0
+
+## 2022-06-29
+
+Corrected options.py to handle:
+
+- If -c, --config given: no input file is needed and no error is reported
+- Better help message for --help
+- If .abqaq.yml is present then proper priority of options is computed if command line options present
+- Refactored parse_args to get_flags and process_args for better testability
+
+### Better error messages
+
+- If parse error, now shows proper line and column numbers
+- Opther exceptions are caught and better reported.
+
+### Better docstrings for documentation
+
+Note: much more work is needed here.
+
+### Replaced data.json, data.yml
+
+Since the default behaviour is now to output data friendly data sections in Locations,
+the data.json and data.yml in the examples now reflect that format.
+
 ## 2022-06-28
 
 - Added options.py : Command line options and argument parsing

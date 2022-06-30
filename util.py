@@ -8,10 +8,9 @@ def argf(inf):
     if sys.stdin.isatty():
         return open(inf, newline="")
     elif inf is None:
-                return sys.stdin
+        return sys.stdin
     else:
         return sys.stdin
-
 
 
 def eprint(*args):
@@ -19,12 +18,9 @@ def eprint(*args):
     print(*args, file=sys.stderr)
 
 
-
-
 def iprint(*args):
-    """ like eprint, but checks agains the '--quiet' flag and suppresses the outout """
-    if options['quiet']:
+    """like eprint, but checks agains the '--quiet' flag and suppresses the outout"""
+    if options["quiet"]:
         pass
     else:
         eprint(*args)
-

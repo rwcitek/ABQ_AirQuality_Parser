@@ -2,7 +2,7 @@
 import sys
 from parsy import seq, string, regex, ParseError
 import yaml
-from options import options, get_flags, process_args,  ifile
+from options import options, get_flags, process_args, ifile
 from util import argf, eprint, iprint
 from walk import proc_ir
 
@@ -13,15 +13,17 @@ from walk import proc_ir
 
 
 def serialize(ir2):
-    """ Given IR dictionary from phase II, return string based on the value of options['serializer']. YAML | JSON """
-    if options['serializer'] == 'JSON':
+    """Given IR dictionary from phase II, return string based on the value of options['serializer']. YAML | JSON"""
+    if options["serializer"] == "JSON":
         from io import StringIO
         import json
+
         s = StringIO()
         json.dump(ir2, s)
         return s.getvalue()
     else:
-        return yaml.dump(ir2,default_flow_style=False, sort_keys=False) 
+        return yaml.dump(ir2, default_flow_style=False, sort_keys=False)
+
 
 def iscrlf(slice):
     """checks if slice matches crlf terminal"""
@@ -30,7 +32,6 @@ def iscrlf(slice):
         return True
     except:
         return False
-
 
 
 # helper functions
@@ -59,7 +60,9 @@ comma = string(",")
 cr = string("\r")
 lf = string("\n")
 crlf = cr + lf
-el = lf | crlf  # el can be either a CrLf line ending or a Lf ending. Parse works for both
+el = (
+    lf | crlf
+)  # el can be either a CrLf line ending or a Lf ending. Parse works for both
 
 ## Terminal literals
 
@@ -72,7 +75,7 @@ ef = string("END_FILE")
 
 
 value = regex(r"[A-Za-z0-9._\-\/ ]+")
-#num = regex(r"-?[0-9]+(\.[0-9]+)?")
+# num = regex(r"-?[0-9]+(\.[0-9]+)?")
 
 #  combined parsers
 
@@ -88,7 +91,6 @@ def rddata(fn):
     """rddata() returns the _ exact _ contenst of 'begin_data.ex1'"""
     with open(fn, newline="") as f:  # Suppress the line ending handler
         return f.read()
-
 
 
 # NonTerminals
@@ -132,8 +134,9 @@ def main():
         eprint(vex)
         exit(3)
     except ParseError as pex:
-        ln, cm = map(int, pex.line_info().split(':'))
-        ln += 1; cm += 1
+        ln, cm = map(int, pex.line_info().split(":"))
+        ln += 1
+        cm += 1
         eprint(f"parse error at line:{ln}, column{cm}")
         exit(2)
     except Exception as exc:
