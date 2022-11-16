@@ -24,9 +24,7 @@ sed -re 's/^  (BEGIN_GROUP)/- \1:/' |
 sed -re '/^  END_GROUP/d' |
 sed -e '/^BEGIN_FILE/,/END_FILE/s/^/  /' |
 sed -re 's/^  (BEGIN_FILE)/- \1:/' |
-sed -re '/^  END_FILE/d' 
-
-> 042222.0017.yaml
+sed -re '/^  END_FILE/d' > 042222.0017.yaml
 ```
 
 ### Third: convert YAML into JSON
