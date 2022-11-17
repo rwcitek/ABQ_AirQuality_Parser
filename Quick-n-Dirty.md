@@ -34,3 +34,7 @@ ruby -rjson -ryaml -e 'puts YAML::load(ARGF.read).to_json' |
 jq . |
 grep -v null, > 042222.0017.json
 ```
+
+## Example data
+See the [data folder](https://github.com/rwcitek/ABQ_AirQuality_Parser/tree/main/data) for the resulting YAML and JSON files.
+
