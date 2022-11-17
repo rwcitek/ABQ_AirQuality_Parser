@@ -14,15 +14,15 @@ curl -s -O http://data.cabq.gov/airquality/aqindex/history/042222.0017
 ```bash
 cat 042222.0017 |
 sed -re '/^[A-Z]{3}/{ s/,/: / }' |
-sed -e '{ s/ *,/,/ }' |
-sed -e '/^BEGIN_DATA/,/END_DATA/{ s/^/- / }' |
+sed -re '{ s/ *,/,/ }' |
+sed -re '/^BEGIN_DATA/,/END_DATA/{ s/^/- / }' |
 sed -re '{ s/^- BEGIN_DATA/DATA:/ }' |
 sed -re '{ /^- END_DATA/d }' |
 sed -re '0,/BEGIN_GROUP/{ s/^(BEGIN_GROUP)/GROUPS:\n\1/ }' |
-sed -e '/^BEGIN_GROUP/,/END_GROUP/{ s/^/  / }' |
+sed -re '/^BEGIN_GROUP/,/END_GROUP/{ s/^/  / }' |
 sed -re '{ s/^  BEGIN_GROUP/- / }' |
 sed -re '{ /^  END_GROUP/d }' |
-sed -e '/^BEGIN_FILE/,/END_FILE/{ s/^/  / }' |
+sed -re '/^BEGIN_FILE/,/END_FILE/{ s/^/  / }' |
 sed -re '{ s/^  BEGIN_FILE/- / }' |
 sed -re '{ /^  END_FILE/d }' > 042222.0017.yaml
 ```
