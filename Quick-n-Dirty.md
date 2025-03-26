@@ -7,7 +7,7 @@ A quick and dirty way to convert the "Free Form" data on the ABQ website is to u
 ### First: Fetch the data
 
 ```bash
-curl -s -O http://data.cabq.gov/airquality/aqindex/history/042222.0017
+curl -s -O https://data.cabq.gov/airquality/aqindex/history/042222.0017
 ```
 
 ### Second: turn into YAML
